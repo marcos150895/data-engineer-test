@@ -1,0 +1,5 @@
+#requirements
+boto3==1.9.86
+twython==3.7.0
+json-encoder==0.4.4
+pandas==0.24.0
