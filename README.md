@@ -20,8 +20,10 @@
  Existe um cloudWatch trigger que executa a cada 10 minutos invocando essa função lambda, pq o lambda tem limite de tempo de execução e precisamos executar quase que o tempo todo.
 
 <br>
+
 ### primeiro caminho
- o primeiro output final é o caminho utilizando firehouse, s3 e glue.
+
+o primeiro output final é o caminho utilizando firehouse, s3 e glue.
 
  Este output se baseia em duas saídas, a primeira é apenas um firehouse que conecta no data stream e inseri raw data no s3 diretamente.
 
