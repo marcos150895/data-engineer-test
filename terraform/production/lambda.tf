@@ -53,7 +53,7 @@ resource "aws_lambda_function" "dynamo_producer" {
 
 resource "aws_lambda_function" "dynamo_api" {
   function_name = "dynamo_api"
-  handler       = "DynamoProducerFuncional.lambda_handler"
+  handler       = "DynamoAPIFuncional.lambda_handler"
   runtime       = "python2.7"
   s3_bucket     = "marcos-testing-data"
   s3_key        = "consumer.zip"

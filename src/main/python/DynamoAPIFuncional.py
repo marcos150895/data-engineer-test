@@ -17,7 +17,7 @@ def lambda_handler(event, context):
 
     operations = {
         'GET': lambda dynamo, x: dynamo.scan(),
-        'POST': lambda dynamo, x: dynamo.put_item(**x),
+        'POST': lambda dynamo, x: dynamo.put_item(),
         'PUT': lambda dynamo, x: dynamo.update_item(**x),
     }
     
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
         if operation == 'GET':
             payload = 'tweets'
         else:
-            payload = event['body']
+            payload = json.loads(event['body'])
         return respond(None, operations[operation](dynamo, payload))
     else:
         return respond(ValueError('Unsupported method "{}"'.format(operation)))

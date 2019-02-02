@@ -108,4 +108,64 @@ Este parte será repensada para ser mais automaticamente futuramente.
 ## variveis do terraform
 
 
-## documentar api
+## api reference
+
+A api será deployada pelo api gateway, primeiro pegue o endpoint no console da Amazon
+
+Request
+- ```GET```  endpoint/deploying_api/test/
+
+Response
+
+```
+{
+  "Count": 1,
+  "Items": [
+    {
+      "test": "mingau",
+      "hash_line": "jdakmakmdmakd95ui9rji5f"
+    }
+  ],
+  "ScannedCount": 1,
+  "ResponseMetadata": {
+    "RetryAttempts": 0,
+    "HTTPStatusCode": 200,
+    "RequestId": "C6VAFM2VHVBDPLG1JLBVJKNDT3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+    "HTTPHeaders": {
+      "x-amzn-requestid": "C6VAFM2VHVBDPLG1JLBVJKNDT3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+      "content-length": "106",
+      "server": "Server",
+      "connection": "keep-alive",
+      "x-amz-crc32": "4174001901",
+      "date": "Sat, 02 Feb 2019 19:50:39 GMT",
+      "content-type": "application/x-amz-json-1.0"
+    }
+  }
+}
+```
+
+Request
+
+- ```POST``` endpoint/deploying_api/test/
+
+Os campos necessários para o post são apenas o hash_line, e qualquer campo que você deseja enviar
+
+Exemplo 
+
+```
+    {
+            "Item": {
+                "processed_date": "algoaqui",
+                "hash_line" : "akmkamskiaia",
+                "min_created_at": "coloque_algo_aqui", 
+                "max_created_df": "coloque_algo_aqui", 
+                "tweets_quantity": "coloque_algo_aqui",
+                "user_description": "coloque_algo_aqui",
+                "user_id": "coloque_algo_aqui",
+                "user_location": "coloque_algo_aqui",
+                "user_name": "coloque_algo_aqui",
+                "user_screen_name": "coloque_algo_aqui",
+                "user_url": "coloque_algo_aqui"
+            }
+    }
+```
