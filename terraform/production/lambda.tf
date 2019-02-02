@@ -11,7 +11,7 @@ resource "aws_lambda_function" "twitter_consumer" {
   filename      = "../../src/main/python/consumer.zip"
   role          = "${aws_iam_role.iam_for_terraform_lambda.arn}"
   memory_size   = "2048"
-  timeout       = "900"
+  timeout       = "600"
 
   depends_on = [
     "data.archive_file.twitter_consumer",
@@ -27,4 +27,32 @@ resource "aws_lambda_function" "twitter_consumer" {
       kinesis_stream_name = "access_log"
     }
   }
+}
+
+resource "aws_lambda_function" "dynamo_producer" {
+  function_name = "dynamo_producer"
+  handler       = "App.dynamo_producer_from_kinesis"
+  runtime       = "python2.7"
+  filename      = "../../src/main/python/consumer.zip"
+  role          = "${aws_iam_role.iam_for_terraform_lambda.arn}"
+  memory_size   = "2048"
+  timeout       = "180"
+
+  depends_on = [
+    "data.archive_file.twitter_consumer",
+  ]
+}
+
+resource "aws_lambda_function" "dynamo_api" {
+  function_name = "dynamo_api"
+  handler       = "DynamoProducerFuncional.lambda_handler"
+  runtime       = "python2.7"
+  filename      = "../../src/main/python/consumer.zip"
+  role          = "${aws_iam_role.iam_for_lambda.arn}"
+  memory_size   = "2048"
+  timeout       = "180"
+
+  depends_on = [
+    "data.archive_file.twitter_consumer",
+  ]
 }
