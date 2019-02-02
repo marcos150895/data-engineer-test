@@ -16,6 +16,10 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
+
+  provisioner "local-exec" {
+    command = "../../dependecies.sh"
+  }
 }
 
 resource "aws_iam_role_policy" "lambda_policy" {

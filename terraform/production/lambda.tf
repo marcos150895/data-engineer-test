@@ -2,6 +2,8 @@ data "archive_file" "twitter_consumer" {
   type        = "zip"
   output_path = "../../src/main/python/consumer.zip"
   source_dir  = "../../src/main/python/"
+
+  depends_on = ["aws_iam_role.iam_for_lambda"]
 }
 
 resource "aws_lambda_function" "twitter_consumer" {

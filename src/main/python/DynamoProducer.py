@@ -6,6 +6,7 @@ import datetime
 import pandas as pd
 import hashlib
 
+#fazer funcionar
 def dynamo_producer(event, context):
 
     item = None

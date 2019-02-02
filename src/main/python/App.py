@@ -26,3 +26,9 @@ def dynamo_producer_from_kinesis(event, context):
     from DynamoProducer import dynamo_producer
 
     dynamo_producer(event, context)
+
+def dynamo_api_rest(event, context):
+
+    from DynamoApi import dynamo_api
+
+    dynamo_api(event, context)

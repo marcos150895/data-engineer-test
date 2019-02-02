@@ -1,3 +1,4 @@
+import os
 from twython import TwythonStreamer
 import KinesisService
 from json_encoder import json
@@ -11,4 +12,5 @@ class MyStreamer(TwythonStreamer):
         print status_code, data
 
     def insert(self, data):
-        KinesisService.insert_data("access-log", data, "filler")
+        kinesis_stream_name = str(os.environ['kinesis_stream_name'])
+        KinesisService.insert_data(kinesis_stream_name, data, "filler")
