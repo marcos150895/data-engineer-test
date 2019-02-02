@@ -31,7 +31,8 @@ o primeiro output final é o caminho utilizando firehouse, s3 e glue.
 
  Existe outro firehouse, que converte o raw data em parquet, como configuração ele precisa de um schema no glue para fazer a conversão, é por isso que temos alguns crawlers do glue para fazer isso e utilizarmos como input para esse firehouse, esse firehouse tem como produto final dados em parquet no s3.
 
- Como final, o Athena pode ler os dados do s3 em parquet, apenas acessando o Athena já temos nossas tabelas criadas pois o Athena herda as tabelas do Glue, então não há necessidade de criar uma tabela no Athena.
+ Como final, o Athena pode ler os dados do s3 em parquet, apenas acessando o Athena já temos nossas tabelas criadas pois o Athena herda as tabelas do Glue, então não há necessidade de criar uma tabela no Athena. Uma melhoria que não deu tempo de realizar foi criar um api gateway + lambda para criar uma api em cima do Athena e fazer consultas pela API.
+
 <br>
 ### Segundo caminho
 O segundo caminho (apenas chamando assim, como um alias) é onde existe uma função lambda que consome os dados do kinesis data-stream lê esses dados, faz alguma transformação e envia para o dynamo salvar os dados.
@@ -53,6 +54,7 @@ Para a reprodução existe uma infraestrutura como código, todas elas foram esc
 - Conta aws
 - Aws cli
 - AWs token
+- Conta e app Oauth no Twitter
 <br>
 
 Primeiro configure seu aws cli em seu terminal, para configurar seu aws cli digite em um terminal ```aws configure```, entre com as suas credencias, access e token da aws e também a região default da aws (ex: us-east-1). Caso não tenha o aws cli, baixe neste [link](https://aws.amazon.com/pt/cli/).
@@ -70,12 +72,40 @@ Depois, execute o comando:
 
 ```terraform plan```
 
+No terraform plan, o sistema necessita de algumas variáveis, você pode inclui-lás interativamente pela ferramenta ou na execução pela linha informar elas. As variáveis são:
+
+- twitter_app_key (token do app do twitter)
+- twitter_app_secret (token do app do twitter)
+- twitter_oauth_token (token do app do twitter)
+- twitter_oauth_token_secret (token do app do twitter)
+- twitter_filter_subject (qual assunto você deseja filtrar no twitter)
+
+Caso queira executar pela linha de comando com variáveis execute desse jeito:
+
+```
+terraform plan \
+ -var 'twitter_app_key=suakey'
+ -var 'twitter_app_secret=suasecret'
+```
+
 Depois, execute o comando:
 
 ```terraform apply```
 
 Ele irá toda a infraestrutura para rodar o projeto, o único ponto que ainda não está 100% é que para criar o firehouse que converte em parquet, ele precisa da tabela no glue, e pode ser que ainda não tenha rodado o crawler.
 
+Por isso o arquivo firehouse_parquet_data.tf está comentado, rode a primeira vez sem ele. Depois que a infra subir (passando uns 5-10 min), descomente este arquivo e rode novamente os comandos:
+
+```terraform plan```
+
+Depois, execute o comando:
+
+```terraform apply```
+
+Este parte será repensada para ser mais automaticamente futuramente.
+
+
+## variveis do terraform
+
 
 ## documentar api
-

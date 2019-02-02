@@ -1,4 +1,4 @@
 provider "aws" {
-  profile = "prod"
+  profile = "default"
   region  = "us-east-1"
 }
