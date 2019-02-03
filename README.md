@@ -105,10 +105,6 @@ Depois, execute o comando:
 
 Este parte será repensada para ser mais automaticamente futuramente.
 
-
-## variveis do terraform
-
-
 ## api reference
 
 A api será deployada pelo api gateway, primeiro pegue o endpoint no console da Amazon
