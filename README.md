@@ -34,6 +34,7 @@ o primeiro output final é o caminho utilizando firehouse, s3 e glue.
  Como final, o Athena pode ler os dados do s3 em parquet, apenas acessando o Athena já temos nossas tabelas criadas pois o Athena herda as tabelas do Glue, então não há necessidade de criar uma tabela no Athena. Uma melhoria que não deu tempo de realizar foi criar um api gateway + lambda para criar uma api em cima do Athena e fazer consultas pela API.
 
 <br>
+
 ### Segundo caminho
 O segundo caminho (apenas chamando assim, como um alias) é onde existe uma função lambda que consome os dados do kinesis data-stream lê esses dados, faz alguma transformação e envia para o dynamo salvar os dados.
 
