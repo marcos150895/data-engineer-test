@@ -16,4 +16,9 @@ resource "aws_dynamodb_table" "table_tweet" {
     name = "hash_line"
     type = "S"
   }
+
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
 }

@@ -41,3 +41,36 @@ resource "aws_api_gateway_integration" "integration_post" {
   uri                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${aws_lambda_function.dynamo_api.arn}/invocations"
   depends_on = ["aws_api_gateway_integration.integration_get"]
 }
+
+resource "aws_api_gateway_method_response" "options_200_get" {
+    rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+    resource_id   = "${aws_api_gateway_resource.resource.id}"
+    http_method   = "${aws_api_gateway_method.method_get.http_method}"
+    status_code   = "200"
+    response_models {
+        "application/json" = "Empty"
+    }
+    response_parameters {
+        "method.response.header.Access-Control-Allow-Headers" = true,
+        "method.response.header.Access-Control-Allow-Methods" = true,
+        "method.response.header.Access-Control-Allow-Origin" = true
+    }
+    depends_on = ["aws_api_gateway_method.method_get"]
+}
+
+resource "aws_api_gateway_method_response" "options_200_post" {
+    rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+    resource_id   = "${aws_api_gateway_resource.resource.id}"
+    http_method   = "${aws_api_gateway_method.method_post.http_method}"
+    status_code   = "200"
+    response_models {
+        "application/json" = "Empty"
+    }
+    response_parameters {
+        "method.response.header.Access-Control-Allow-Headers" = true,
+        "method.response.header.Access-Control-Allow-Methods" = true,
+        "method.response.header.Access-Control-Allow-Origin" = true
+    }
+    depends_on = ["aws_api_gateway_method.method_post"]
+}
+
