@@ -21,7 +21,7 @@
 
 <br>
 
-### primeiro caminho
+### Primeiro caminho
 
 o primeiro output final é o caminho utilizando firehouse, s3 e glue.
 
@@ -29,7 +29,7 @@ o primeiro output final é o caminho utilizando firehouse, s3 e glue.
 
  Neste cenário, também queria ter o mesmo dado sendo entregue em parquet para otimizar buscas pelo athena. Por isso, foi criado um glue database e um crawler, este crawler basicamente fica lendo o diretório da raw data acima para criar um schema para converter os dados em parquet para outro firehouse.
 
- Existe outro firehouse, que converte o raw data em parquet, como configuração ele precisa de um schema no glue para fazer a conversão, é por isso que temos alguns crawlers do glue para fazer isso e utilizarmos como input para esse firehouse, esse firehouse tem como produto final dados em parquet no s3.
+ Existe outro firehouse, que converte o raw data em parquet, como configuração ele precisa de um schema no glue para fazer a conversão, é por isso que temos alguns crawlers do glue para fazer isso e utilizarmos como input para esse firehouse, esse firehouse tem como produto final dados em parquet no s3. Isso foi feito pensando em melhor performance para a leitura do Athena.
 
  Como final, o Athena pode ler os dados do s3 em parquet, apenas acessando o Athena já temos nossas tabelas criadas pois o Athena herda as tabelas do Glue, então não há necessidade de criar uma tabela no Athena. Uma melhoria que não deu tempo de realizar foi criar um api gateway + lambda para criar uma api em cima do Athena e fazer consultas pela API.
 
@@ -50,15 +50,20 @@ Um API gateway foi criado para fazer a interface entre esta lambda com uma API m
 
 Para a reprodução existe uma infraestrutura como código, todas elas foram escritas com terraform.
 <br>
-#### dependências
+#### Dependências
 - Terraform
 - Conta aws
 - Aws cli
 - AWs token
 - Conta e app Oauth no Twitter
+- Git
 <br>
 
-Primeiro configure seu aws cli em seu terminal, para configurar seu aws cli digite em um terminal ```aws configure```, entre com as suas credencias, access e token da aws e também a região default da aws (ex: us-east-1). Caso não tenha o aws cli, baixe neste [link](https://aws.amazon.com/pt/cli/).
+Primeiro clone o projeto pelo git em sua máquina
+
+```git clone https://github.com/marcos150895/data-engineer-test.git ```
+
+Segundo configure seu aws cli em seu terminal, para configurar seu aws cli digite em um terminal ```aws configure```, entre com as suas credencias, access e token da aws e também a região default da aws (ex: us-east-1). Caso não tenha o aws cli, baixe neste [link](https://aws.amazon.com/pt/cli/).
 
 Baixe o terraform para o seu SO, clique [aqui](https://www.terraform.io/downloads.html) 
 
@@ -105,7 +110,7 @@ Depois, execute o comando:
 
 Este parte será repensada para ser mais automaticamente futuramente.
 
-## api reference
+## Api reference
 
 A api será deployada pelo api gateway, primeiro pegue o endpoint no console da Amazon
 
